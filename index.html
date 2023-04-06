@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do app</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div id="app">
+
+        <div class="container mx-auto ">
+            <div class="flex justify-center items-center h-screen ">
+                <div class="border border-indigo-500 rounded-md ">
+                    <div class="flex  flex-col space-y-4 justify-center items-center p-8">
+                        <h3>{{title}}</h3>
+                        
+                        <form action="" @submit.prevent="addPerson">
+                            <label for="person" class=" block">Add person</label>
+                            <input  type="text" v-model="newPerson" class="border border-indigo-500 px-2 mb-4   ">
+                            <label for="person" class=" block">Add Budget</label>
+                            <input  type="text" v-model="budgetPrice" class="border border-indigo-500 px-2 ">
+
+                            <button class="block px-4 py-2 bg-indigo-500 font-bold text-white mt-4 rounded ">Submit</button>
+                        </form>
+                        <!-- <button class="bg-red-500 text-white text-base"> Delete </button> -->
+                        
+                        <ul class=" flex flex-col flex-initial">
+                            <li v-for="item in items">{{item.name}} - {{item.budget}} </li>
+                            <li>Total - {{totalBudget}}  </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+
+     
+        
+
+    </div>
+    
+    
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                title: 'Eid Budget',
+
+                items: [
+                    {name: 'Father', budget: 10.00},
+                    {name: 'Mother', budget: 10.00},
+                    {name: 'Sister', budget: 10.00},
+                ],
+                newPerson: '',
+                budgetPrice: ''
+                
+            },
+            computed: {
+                totalBudget(){
+                    var total = 0;
+                    this.items.forEach(item => {
+                        total +=  parseFloat(item.budget)
+                    });
+                    return total;
+                }
+
+            },
+            methods: {
+                addPerson(){
+                    this.items.push({
+                        name : this.newPerson,
+                        budget : this.budgetPrice,
+                    })
+                }
+            },
+            
+        })
+    </script>
+</body>
+</html>
